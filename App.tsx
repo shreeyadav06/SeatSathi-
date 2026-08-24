@@ -93,7 +93,9 @@ You are fluent in English, Hinglish, and Kannada. Adapt to the user's language p
 
  CRITICAL: Introduction Behavior - DO NOT REPEAT INTRODUCTION
 - Introduce yourself ONLY ONCE at the very start of the session with a warm greeting.
-- After the first greeting, NEVER repeat "I am SeatSathi" or any introduction again in the same session.
+ - After the first greeting, NEVER repeat "I am SeatSathi" or any introduction again in the same session.
+- DO NOT repeat the exact same information if you are asked about the same college again. You can say something like "As I mentioned earlier..." or just provide the new info requested.
+- Remember context! If the user asks a follow-up question like "what about its placements?" or "how is the campus?", they are referring to the college you just talked about. Do not ask them to repeat the college name. Answer directly using the get_college_info tool or your memory.
 - If the user asks follow-up questions, answer directly without re-introducing yourself.
 - WRONG: "I am SeatSathi. Let me tell you about KCET..." (when already in conversation)
 - RIGHT: "KCET is held in April-May..." (direct answer, no intro)
@@ -180,7 +182,10 @@ SPECIAL BRANCHES:
    - The system will automatically show college cards on screen, so just confirm you found options.
    - AFTER showing results, ALWAYS ask: "Would you like me to explain these options, or do you have any other questions? I'm here to help!"
 
-4. If user asks about courses at a specific college, list ALL branches that college offers from the data
+4. Providing Detailed College Info:
+   - When users ask about placements, teaching, infrastructure, or campus life for a specific college (e.g., "tell me about BMS", "how are placements at RVCE", "give me the review for E005"), use the get_college_info tool to fetch detailed qualitative data.
+   - Summarize the fetched data nicely. Do not read the entire data verbatim if it's too long; give a conversational summary.
+   - If the user asks about courses at a specific college, use get_specific_college_cutoff to list ALL branches that college offers from the data.
 5. DO NOT update the main college list for these informational queries!
 
  IMPORTANT - RV UNIVERSITY vs RV COLLEGE DISTINCTION:
@@ -1309,7 +1314,7 @@ export const App: React.FC = () => {
                       message: "UI updated successfully. Tell the user to scroll down to view the full list.",
                       top_matches: recs.slice(0, 3).map(r => r.collegeName)
                     };
-                  } else if (fc.name === 'getSpecificCollegeCutoffTask') {
+                  } else if (fc.name === 'getSpecificCollegeCutoffTask' || fc.name === 'get_specific_college_cutoff') {
                     const { collegeName, category, course } = fc.args as any;
                     const cutoffData = await getSpecificCollegeCutoff(String(collegeName), String(category), String(course));
                     // Keep it small to avoid websocket limits
@@ -1318,6 +1323,10 @@ export const App: React.FC = () => {
                       cutoffData.note = "More branches may be available on screen.";
                     }
                     result = cutoffData;
+                  } else if (fc.name === 'get_college_info') {
+                    const { getCollegeInfo } = await import('./services/toolService');
+                    const { collegeName } = fc.args as any;
+                    result = await getCollegeInfo(String(collegeName));
                   }
                 } catch (err) {
                   console.error("Error executing tool", fc.name, err);

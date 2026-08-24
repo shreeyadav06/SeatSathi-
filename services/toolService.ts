@@ -1,5 +1,5 @@
 import { CollegeRecommendation, KcetData } from "../types";
-import { findMatchingCollegesFast, getSpecificCollegeCutoffFast } from "./dbQuery";
+import { findMatchingCollegesFast, getSpecificCollegeCutoffFast, getCollegeInfoFast } from "./dbQuery";
 import { ensureDatabaseReady } from "./dbPopulate";
 import { db } from "./database";
 import { parsePdfCollegeData, searchPdfColleges, searchPdfByCollegeName, hasPdfData, getPdfCollegeCount } from "./pdfCollegeSearch";
@@ -552,6 +552,25 @@ const getSpecificCollegeCutoffLegacy = async (collegeName: string, category: str
     };
 }
 
+/**
+ * Get qualitative information about a college (placements, teaching, infrastructure)
+ */
+export const getCollegeInfo = async (collegeName: string): Promise<any> => {
+    if (useDatabase) {
+      try {
+        const result = await getCollegeInfoFast(collegeName);
+        if (!result.error) {
+          console.log(`[DB Query] College info found in ${result.queryTimeMs}ms`);
+          return result;
+        }
+      } catch (error) {
+        console.warn('Database query failed for college info:', error);
+      }
+    }
+    
+    return { error: `Could not fetch detailed information for ${collegeName}. Data might not be loaded yet.` };
+};
+
 export const toolsDeclaration: any[] = [
   {
     functionDeclarations: [
@@ -590,6 +609,17 @@ export const toolsDeclaration: any[] = [
             course: { type: "STRING", description: "Course branch" }
           },
           required: ["collegeName", "category", "course"]
+        }
+      },
+      {
+        name: "get_college_info",
+        description: "Gets detailed qualitative information about a specific college (e.g., placements, teaching, infrastructure, campus life, fees, ranking). Use this when the user asks for details about a college, reviews, or specific parameters like 'how are placements at BMS' or 'tell me about RVCE infrastructure'.",
+        parameters: {
+          type: "OBJECT",
+          properties: {
+            collegeName: { type: "STRING", description: "Name or KCET code of the college (e.g., 'RVCE', 'BMS College', 'E005')" }
+          },
+          required: ["collegeName"]
         }
       }
     ]

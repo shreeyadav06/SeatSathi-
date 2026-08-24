@@ -247,3 +247,65 @@ export async function getSpecificCollegeCutoffFast(
     queryTimeMs: Math.round((endTime - startTime) * 100) / 100
   };
 }
+
+/**
+ * Get detailed metadata info about a specific college by name or code
+ */
+export async function getCollegeInfoFast(collegeIdentifier: string): Promise<any> {
+  const startTime = performance.now();
+  const query = collegeIdentifier.toLowerCase().trim();
+  
+  // Try to find by code first (exact match)
+  let metadata = await db.collegeMetadata
+    .where("code").equals(collegeIdentifier.toUpperCase())
+    .first();
+    
+  if (!metadata) {
+    // Try to find by shortName (exact)
+    metadata = await db.collegeMetadata
+      .where("shortName").equalsIgnoreCase(query)
+      .first();
+  }
+  
+  if (!metadata) {
+    // Try fuzzy match on shortName or aliases
+    const allMetadata = await db.collegeMetadata.toArray();
+    metadata = allMetadata.find(record => {
+      if (record.shortName.toLowerCase().includes(query)) return true;
+      try {
+        const aliases: string[] = JSON.parse(record.aliases as unknown as string) || [];
+        return aliases.some(alias => alias.toLowerCase().includes(query));
+      } catch(e) {
+        // Handle case if aliases is array instead of JSON string
+        if (Array.isArray(record.aliases)) {
+          return record.aliases.some((alias: string) => alias.toLowerCase().includes(query));
+        }
+        return false;
+      }
+    });
+  }
+
+  // Fallback: If metadata not found, look up the name in the colleges table
+  if (!metadata) {
+    const allColleges = await db.colleges.toArray();
+    const match = allColleges.find(record => record.name.toLowerCase().includes(query));
+    if (match) {
+      // Look up metadata by code from the match
+      metadata = await db.collegeMetadata.where("code").equals(match.code).first();
+    }
+  }
+  
+  const endTime = performance.now();
+  
+  if (!metadata) {
+    return {
+      error: `Could not find detailed information for ${collegeIdentifier}.`
+    };
+  }
+  
+  return {
+    ...metadata,
+    queryTimeMs: Math.round((endTime - startTime) * 100) / 100
+  };
+}
+
