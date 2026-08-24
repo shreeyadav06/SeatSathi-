@@ -72,14 +72,14 @@ export function decode(base64: string) {
   return bytes;
 }
 
-export async function decodeAudioData(
+export function decodeAudioDataSync(
   data: Uint8Array,
   ctx: AudioContext,
-  sampleRate: number,
-  numChannels: number,
-): Promise<AudioBuffer> {
-  const dataInt16 = new Int16Array(data.buffer);
-  const frameCount = dataInt16.length / numChannels;
+  sampleRate: number = 24000,
+  numChannels: number = 1,
+): AudioBuffer {
+  const dataInt16 = new Int16Array(data.buffer, data.byteOffset, Math.floor(data.byteLength / 2));
+  const frameCount = Math.floor(dataInt16.length / numChannels);
   const buffer = ctx.createBuffer(numChannels, frameCount, sampleRate);
 
   for (let channel = 0; channel < numChannels; channel++) {
@@ -89,6 +89,15 @@ export async function decodeAudioData(
     }
   }
   return buffer;
+}
+
+export async function decodeAudioData(
+  data: Uint8Array,
+  ctx: AudioContext,
+  sampleRate: number = 24000,
+  numChannels: number = 1,
+): Promise<AudioBuffer> {
+  return decodeAudioDataSync(data, ctx, sampleRate, numChannels);
 }
 
 export function encode(bytes: Uint8Array) {

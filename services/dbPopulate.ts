@@ -142,11 +142,12 @@ const VERSION_KEY = 'kcet_data_version';
 export async function ensureDatabaseReady(): Promise<boolean> {
   try {
     const cutoffCount = await db.cutoffs.count();
+    const metadataCount = await db.collegeMetadata.count();
     const storedVersion = localStorage.getItem(VERSION_KEY);
-    const needsUpdate = !storedVersion || parseInt(storedVersion) < DATA_VERSION;
+    const needsUpdate = !storedVersion || parseInt(storedVersion) < DATA_VERSION || metadataCount === 0;
     
     if (cutoffCount === 0 || needsUpdate) {
-      console.log(needsUpdate ? 'Data version changed, repopulating database...' : 'Database empty, populating...');
+      console.log(needsUpdate ? 'Data version changed or metadata missing, repopulating database...' : 'Database empty, populating...');
       const result = await populateDatabase();
       console.log(`Database populated in ${result.timeMs}ms:`, result.stats);
       if (result.success) {
@@ -155,7 +156,7 @@ export async function ensureDatabaseReady(): Promise<boolean> {
       return result.success;
     }
     
-    console.log(`Database ready with ${cutoffCount} cutoff records (version ${storedVersion})`);
+    console.log(`Database ready with ${cutoffCount} cutoff records and ${metadataCount} metadata records (version ${storedVersion})`);
     return true;
   } catch (error) {
     console.error('Database initialization error:', error);

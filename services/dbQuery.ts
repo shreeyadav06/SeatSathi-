@@ -1,5 +1,6 @@
 import { db, normalizeCategory, mapCourseToCategory, CutoffRecord } from './database';
 import { CollegeRecommendation } from '../types';
+import { CollegeMetadataRecord } from '../KCETcutoffdata/types';
 
 export interface QueryResult {
   recommendations: CollegeRecommendation[];
@@ -254,44 +255,75 @@ export async function getSpecificCollegeCutoffFast(
 export async function getCollegeInfoFast(collegeIdentifier: string): Promise<any> {
   const startTime = performance.now();
   const query = collegeIdentifier.toLowerCase().trim();
+  const cleanQuery = query.replace(/college|institute|university|of|technology|engineering|bengaluru|bangalore/gi, '').trim();
   
-  // Try to find by code first (exact match)
-  let metadata = await db.collegeMetadata
-    .where("code").equals(collegeIdentifier.toUpperCase())
-    .first();
-    
-  if (!metadata) {
-    // Try to find by shortName (exact)
-    metadata = await db.collegeMetadata
-      .where("shortName").equalsIgnoreCase(query)
-      .first();
-  }
-  
-  if (!metadata) {
-    // Try fuzzy match on shortName or aliases
-    const allMetadata = await db.collegeMetadata.toArray();
-    metadata = allMetadata.find(record => {
-      if (record.shortName.toLowerCase().includes(query)) return true;
-      try {
-        const aliases: string[] = JSON.parse(record.aliases as unknown as string) || [];
-        return aliases.some(alias => alias.toLowerCase().includes(query));
-      } catch(e) {
-        // Handle case if aliases is array instead of JSON string
-        if (Array.isArray(record.aliases)) {
-          return record.aliases.some((alias: string) => alias.toLowerCase().includes(query));
+  const allMetadata = await db.collegeMetadata.toArray();
+
+  let metadata: CollegeMetadataRecord | undefined;
+
+  if (allMetadata.length > 0) {
+    // 1. Try to find by code first (exact match)
+    metadata = allMetadata.find(r => r.code.toUpperCase() === collegeIdentifier.toUpperCase());
+      
+    // 2. Try shortName exact or substring match
+    if (!metadata) {
+      metadata = allMetadata.find(r => {
+        const sName = r.shortName.toLowerCase();
+        return sName === query || sName.includes(query) || (cleanQuery.length >= 2 && sName.includes(cleanQuery));
+      });
+    }
+
+    // 3. Try aliases match
+    if (!metadata) {
+      metadata = allMetadata.find(record => {
+        try {
+          const aliases: string[] = Array.isArray(record.aliases) 
+            ? record.aliases 
+            : JSON.parse(record.aliases as unknown as string) || [];
+          return aliases.some(alias => {
+            const aLower = alias.toLowerCase();
+            return aLower.includes(query) || query.includes(aLower) || (cleanQuery.length >= 2 && aLower.includes(cleanQuery));
+          });
+        } catch(e) {
+          return false;
         }
-        return false;
+      });
+    }
+
+    // 4. Fallback: look up in colleges table first, then map by code
+    if (!metadata) {
+      const allColleges = await db.colleges.toArray();
+      const match = allColleges.find(record => {
+        const cName = record.name.toLowerCase();
+        return cName.includes(query) || (cleanQuery.length >= 2 && cName.includes(cleanQuery));
+      });
+      if (match) {
+        metadata = allMetadata.find(r => r.code === match.code);
       }
-    });
+    }
   }
 
-  // Fallback: If metadata not found, look up the name in the colleges table
+  // 5. Hard Fallback: If Dexie returned no metadata, fetch directly from static JSON loader
   if (!metadata) {
-    const allColleges = await db.colleges.toArray();
-    const match = allColleges.find(record => record.name.toLowerCase().includes(query));
-    if (match) {
-      // Look up metadata by code from the match
-      metadata = await db.collegeMetadata.where("code").equals(match.code).first();
+    try {
+      const { loadCollegeMetadata } = await import('../KCETcutoffdata/metadataLoader');
+      const staticData = await loadCollegeMetadata();
+      if (staticData) {
+        // Direct code match
+        metadata = staticData[collegeIdentifier.toUpperCase()];
+        if (!metadata) {
+          // Search static data values
+          const values = Object.values(staticData);
+          metadata = values.find(r => {
+            const sName = r.shortName.toLowerCase();
+            if (sName === query || sName.includes(query) || (cleanQuery.length >= 2 && sName.includes(cleanQuery))) return true;
+            const aliases = Array.isArray(r.aliases) ? r.aliases : [];
+            return aliases.some(a => a.toLowerCase().includes(query) || (cleanQuery.length >= 2 && a.toLowerCase().includes(cleanQuery)));
+          });
+        }
+      }
+    } catch (e) {
+      console.warn("Static metadata fallback failed:", e);
     }
   }
   
@@ -299,7 +331,7 @@ export async function getCollegeInfoFast(collegeIdentifier: string): Promise<any
   
   if (!metadata) {
     return {
-      error: `Could not find detailed information for ${collegeIdentifier}.`
+      error: `Could not find detailed information for '${collegeIdentifier}'.`
     };
   }
   

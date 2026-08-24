@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback, createContext, useContext } from 'react';
-import { createBlob, decode, decodeAudioData } from './services/audioUtils';
+import { createBlob, decode, decodeAudioData, decodeAudioDataSync } from './services/audioUtils';
 import { toolsDeclaration, findMatchingColleges, getSpecificCollegeCutoff, initDatabase } from './services/toolService';
 import Visualizer from './components/Visualizer';
 import CollegeCard from './components/CollegeCard';
@@ -157,36 +157,27 @@ SPECIAL BRANCHES:
 - MINING - Mining Engineering
 
  Core Functions & Rules
-1. Context Awareness: Always track and REPEAT BACK these 4 key details clearly in your response:
-   - Rank (e.g., 5000, 12000) - say "Your rank is [number]"
-   - Category (e.g., GM, 1G, 2AG, 2BG, 3AG, 3BG, SCG, STG) - say "Your category is [category]"
-   - Course Preference (e.g., CS, EC, ME, CV) - say "You want [course]"
-   - Location Preference (e.g., Bangalore, Mysore, Anywhere) - say "Location preference is [location]"
-   
-    CRITICAL - YEAR vs RANK DISTINCTION:
-   - "2024" or "2025" alone usually refers to YEAR, NOT rank!
-   - User saying "KCET 2025 cutoffs" or "2025 data" means the YEAR 2025
-   - Ranks are typically 1000-200000 range. Years are 2024, 2025, 2026.
-   - If user says "rank 5000" that's a rank. If they say "2025 round 1" that's a year.
-   - NEVER use 2024 or 2025 as a rank unless user explicitly says "my rank is 2024" or "rank 2025"
-   - Example WRONG: User says "find GM ME colleges from 2025 PDF" → Rank=2025 x
-   - Example RIGHT: User says "find GM ME colleges from 2025 PDF" → Ask "What is your KCET rank?" x the rank is missing!
-2. Proactive Counseling:
-   - If the user provides all 4 details, ALWAYS repeat them back clearly like: "So your rank is 12000, category is 2AG, you want CS branch, and location is Bangalore. Let me check the colleges for you."
-   - If details are missing, ask for them one by one.
-   - Example: User says "I have rank 5000" → You respond: "Great rank of 5000! Which category - GM, 2AG, 3BG, SC, or ST? And what branch are you interested in?"
-3. Response Style:
-   - Be concise and conversational.
-   - When you have all details, say something like "Based on your rank of [X] in [category] for [course] in [location], I've found colleges for you. Check the list on your screen below."
-   - NEVER say "left side" or "right side" of the screen - the list appears below on the same screen.
-   - The system will automatically show college cards on screen, so just confirm you found options.
+ 1. NO MANDATORY DETAILS REQUIREMENT:
+   - Users DO NOT need to provide rank, category, course, or location to ask about colleges or request information.
+   - If a user asks about a specific college (e.g., "tell me about RVCE", "how are placements at BMSCE?", "what are fees at PES?", "give me review for E005"), IMMEDIATELY call get_college_info or get_specific_college_cutoff and answer their question directly.
+   - DO NOT ask for rank, category, or branch when a user asks for information or placements of a college!
+   - If a user provides rank/category/course/location, track them and repeat them back if doing a general search.
+
+ 2. Proactive Counseling:
+   - If a user asks for college recommendations based on rank, check the database. If some parameters are missing (e.g. they only give rank), you can recommend top options for GM category/CS branch or ask clarifying questions naturally.
+   - Example: User says "tell me about BMS" → IMMEDIATELY call get_college_info with collegeName="BMS" and tell them about placements, teaching, infrastructure, fees, etc. DO NOT ask for their rank first!
+
+ 3. Response Style:
+   - Be concise, clear, and conversational.
+   - When showing recommendations, say: "I've found colleges for you. Check the list on your screen below."
+   - The system will automatically show college cards on screen.
    - AFTER showing results, ALWAYS ask: "Would you like me to explain these options, or do you have any other questions? I'm here to help!"
 
-4. Providing Detailed College Info:
-   - When users ask about placements, teaching, infrastructure, or campus life for a specific college (e.g., "tell me about BMS", "how are placements at RVCE", "give me the review for E005"), use the get_college_info tool to fetch detailed qualitative data.
-   - Summarize the fetched data nicely. Do not read the entire data verbatim if it's too long; give a conversational summary.
-   - If the user asks about courses at a specific college, use get_specific_college_cutoff to list ALL branches that college offers from the data.
-5. DO NOT update the main college list for these informational queries!
+ 4. Providing Detailed College Info:
+   - When users ask about placements, teaching, infrastructure, or campus life for ANY college (e.g., "tell me about BMS", "how are placements at RVCE", "give me the review for E005"), ALWAYS call the get_college_info tool to fetch detailed qualitative data.
+   - Summarize the fetched data nicely (placements, average LPA, highest LPA, campus life, fees).
+   - If the user asks about courses at a specific college, use get_specific_college_cutoff to list ALL branches that college offers.
+ 5. DO NOT update the main college list for these informational queries!
 
  IMPORTANT - RV UNIVERSITY vs RV COLLEGE DISTINCTION:
 - E285 = RV University Bangalore - offers ONLY ONE course via KCET: "B Tech in CS" (also called "B TECH IN COMPUTER SCIENCE AND ENGINEERING")
@@ -878,21 +869,24 @@ export const App: React.FC = () => {
     };
   }, [detectedRank, detectedCategory, detectedCourse, detectedLocation]);
 
-  // Effect to run college matching when all parameters are detected
+  // Effect to run college matching when rank is detected (uses defaults for missing optional params)
   useEffect(() => {
-    if (detectedRank && detectedCategory && detectedCourse && detectedLocation) {
-      console.log("Auto-matching colleges:", { detectedRank, detectedCategory, detectedCourse, detectedLocation });
+    if (detectedRank) {
+      const cat = detectedCategory || 'GM';
+      const course = detectedCourse || 'CS';
+      const loc = detectedLocation || 'bangalore';
+      console.log("Auto-matching colleges:", { detectedRank, category: cat, course, location: loc });
 
       // Use async IIFE since useEffect callback can't be async
       (async () => {
         try {
-          const recs = await findMatchingColleges(detectedRank, detectedCategory, detectedCourse, detectedLocation);
+          const recs = await findMatchingColleges(detectedRank, cat, course, loc);
           setRecommendations(recs);
           setOriginalAiRecommendations(recs); // Store original AI list
           setActiveListIndex(-1); // Reset to current tab
           setHasSearched(true);
           setShowAll(false);
-          addLog(`Found ${recs.length} colleges for Rank ${detectedRank}, ${detectedCategory}, ${detectedCourse}, ${detectedLocation}`, 'system');
+          addLog(`Found ${recs.length} colleges for Rank ${detectedRank}, ${cat}, ${course}, ${loc}`, 'system');
           // Auto-scroll to college list section smoothly
           setTimeout(() => {
             collegeSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1239,47 +1233,55 @@ export const App: React.FC = () => {
               }
             }
 
-            const audioData = msg.serverContent?.modelTurn?.parts?.[0]?.inlineData?.data;
-            if (audioData) {
-              setVisualizerState('speaking');
-              if (outputCtx.state === 'suspended') await outputCtx.resume();
+            // Handle incoming audio playback cleanly across all parts (synchronous, seamless buffer scheduling)
+            const parts = msg.serverContent?.modelTurn?.parts || [];
+            for (const part of parts) {
+              const audioData = part?.inlineData?.data;
+              if (audioData) {
+                setVisualizerState('speaking');
+                if (outputCtx.state === 'suspended') await outputCtx.resume();
 
-              if (!aiAnalyserRef.current) {
-                const aiAnalyser = outputCtx.createAnalyser();
-                aiAnalyser.fftSize = 256;
-                aiAnalyserRef.current = aiAnalyser;
-                aiAnalyser.connect(outputCtx.destination);
-              }
-
-              nextStartTimeRef.current = Math.max(nextStartTimeRef.current, outputCtx.currentTime);
-              const audioBuffer = await decodeAudioData(decode(audioData), outputCtx, 24000, 1);
-              const source = outputCtx.createBufferSource();
-              source.buffer = audioBuffer;
-
-              if (aiAnalyserRef.current) {
-                source.connect(aiAnalyserRef.current);
-              } else {
-                source.connect(outputCtx.destination);
-              }
-
-              // Calculate AI audio level from buffer for visualizer
-              const channelData = audioBuffer.getChannelData(0);
-              const rms = Math.sqrt(channelData.slice(0, 1024).reduce((s, x) => s + x * x, 0) / 1024);
-              setAiAudioLevel(Math.min(1, rms * 3));
-
-              source.onended = () => {
-                sourcesRef.current.delete(source);
-                if (sourcesRef.current.size === 0) {
-                  setVisualizerState('idle');
-                  setAiAudioLevel(0);
+                if (!aiAnalyserRef.current) {
+                  const aiAnalyser = outputCtx.createAnalyser();
+                  aiAnalyser.fftSize = 256;
+                  aiAnalyserRef.current = aiAnalyser;
+                  aiAnalyser.connect(outputCtx.destination);
                 }
-              };
-              source.start(nextStartTimeRef.current);
-              nextStartTimeRef.current += audioBuffer.duration;
-              sourcesRef.current.add(source);
+
+                const audioBytes = decode(audioData);
+                const audioBuffer = decodeAudioDataSync(audioBytes, outputCtx, 24000, 1);
+                
+                nextStartTimeRef.current = Math.max(nextStartTimeRef.current, outputCtx.currentTime);
+
+                const source = outputCtx.createBufferSource();
+                source.buffer = audioBuffer;
+
+                if (aiAnalyserRef.current) {
+                  source.connect(aiAnalyserRef.current);
+                } else {
+                  source.connect(outputCtx.destination);
+                }
+
+                // Calculate AI audio level from buffer for visualizer
+                const channelData = audioBuffer.getChannelData(0);
+                const rms = Math.sqrt(channelData.slice(0, 1024).reduce((s, x) => s + x * x, 0) / 1024);
+                setAiAudioLevel(Math.min(1, rms * 3));
+
+                source.onended = () => {
+                  sourcesRef.current.delete(source);
+                  if (sourcesRef.current.size === 0) {
+                    setVisualizerState('idle');
+                    setAiAudioLevel(0);
+                  }
+                };
+
+                source.start(nextStartTimeRef.current);
+                nextStartTimeRef.current += audioBuffer.duration;
+                sourcesRef.current.add(source);
+              }
             }
 
-            // Interruption handling,;
+            // Interruption handling
             if (msg.serverContent?.interrupted) {
               sourcesRef.current.forEach(s => { try { s.stop(); } catch (e) { } });
               sourcesRef.current.clear();
@@ -1296,12 +1298,12 @@ export const App: React.FC = () => {
                 console.log("Executing tool:", fc.name, fc.args);
 
                 try {
-                  if (fc.name === 'findMatchingCollegesTask') {
+                  if (fc.name === 'findMatchingCollegesTask' || fc.name === 'find_matching_colleges') {
                     const args = fc.args as any;
-                    const finalRank = args.rank || savedParamsRef.current.rank;
-                    const finalCategory = args.category || savedParamsRef.current.category;
-                    const finalCourse = args.course || savedParamsRef.current.course;
-                    const finalLocation = args.location || savedParamsRef.current.location;
+                    const finalRank = args.rank || savedParamsRef.current.rank || 5000;
+                    const finalCategory = args.category || savedParamsRef.current.category || 'GM';
+                    const finalCourse = args.course || savedParamsRef.current.course || 'CS';
+                    const finalLocation = args.location || savedParamsRef.current.location || 'bangalore';
                     
                     const recs = await findMatchingColleges(Number(finalRank), String(finalCategory), String(finalCourse), String(finalLocation));
                     setRecommendations(recs);
@@ -1316,14 +1318,13 @@ export const App: React.FC = () => {
                     };
                   } else if (fc.name === 'getSpecificCollegeCutoffTask' || fc.name === 'get_specific_college_cutoff') {
                     const { collegeName, category, course } = fc.args as any;
-                    const cutoffData = await getSpecificCollegeCutoff(String(collegeName), String(category), String(course));
-                    // Keep it small to avoid websocket limits
+                    const cutoffData = await getSpecificCollegeCutoff(String(collegeName), String(category || 'GM'), String(course || 'CS'));
                     if (cutoffData.data && Array.isArray(cutoffData.data)) {
                       cutoffData.data = cutoffData.data.slice(0, 5); // Send top 5 branches only
                       cutoffData.note = "More branches may be available on screen.";
                     }
                     result = cutoffData;
-                  } else if (fc.name === 'get_college_info') {
+                  } else if (fc.name === 'get_college_info' || fc.name === 'getCollegeInfoTask' || fc.name === 'getCollegeInfo' || fc.name === 'get_college_details' || fc.name === 'getCollegeDetails') {
                     const { getCollegeInfo } = await import('./services/toolService');
                     const { collegeName } = fc.args as any;
                     result = await getCollegeInfo(String(collegeName));
