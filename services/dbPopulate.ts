@@ -133,7 +133,7 @@ export async function populateDatabase(): Promise<{ success: boolean; stats: { c
 
 // Data version - increment this when KCET_DATA changes significantly
 // This forces a database repopulation on the client side
-const DATA_VERSION = 6; // Incremented: Added college metadata table
+const DATA_VERSION = 7; // Incremented: Granular branch placements, top recruiters, intake, and student reviews
 const VERSION_KEY = 'kcet_data_version';
 
 /**

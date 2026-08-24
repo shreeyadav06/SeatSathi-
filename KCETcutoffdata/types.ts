@@ -87,6 +87,10 @@ export interface CollegeMetadataRecord {
   shortName: string;
   aliases: string[];
   placementLPA: string;
+  branchPlacements?: string;
+  topRecruiters?: string[];
+  studentReviews?: string;
+  branchIntake?: string;
   teachingQuality: string;
   infrastructure: string;
   campusLife: string;

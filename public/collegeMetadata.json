@@ -3,100 +3,168 @@
     "code": "E001",
     "shortName": "UVCE",
     "aliases": [
-      "UVCE Bangalore",
-      "University Visvesvaraya College of Engineering"
+      "University Visvesvaraya College of Engineering",
+      "UVCE Bangalore"
     ],
-    "placementLPA": "Highest: ~50 LPA, Average: ~8-10 LPA",
-    "teachingQuality": "Faculty members are highly experienced and hold long academic tenure. Teaching relies on a strong theoretical foundation with an evolving autonomous curriculum. Students benefit significantly from an active and influential alumni network for mentorship.",
-    "infrastructure": "Historic heritage campus with basic departmental laboratory facilities and a central library. Hostel facilities are available for both men and women with essential amenities. Infrastructure upgrades and modernization are ongoing under university status.",
-    "campusLife": "Located at KR Circle in central Bangalore, offering excellent city access and urban connectivity. Active technical fests like IMPULSO and Kagada engage students throughout the academic year. Various student clubs promote competitive coding, robotics, and social initiatives.",
-    "fees": "KCET: ~₹40,000 per year; Management quota: Not Applicable (Public University)",
-    "scholarships": "SSP, NSP, e-Kalyan, and various state government schemes along with UVCE Alumni Association scholarships.",
-    "seatsTotal": "850+",
-    "ranking": "NIRF 2023: 151-200 Band in Engineering; NAAC Grade A"
+    "placementLPA": "Highest: 58 LPA, Average: 9.5 LPA",
+    "branchPlacements": "CSE: Avg 14 LPA, Highest 58 LPA, 95% placed; ECE: Avg 10 LPA, Highest 30 LPA, 88% placed; ISE: Avg 12 LPA, Highest 40 LPA, 92% placed; ME: Avg 6.5 LPA, Highest 14 LPA, 75% placed",
+    "topRecruiters": [
+      "Microsoft",
+      "Atlassian",
+      "SAP Labs",
+      "Oracle",
+      "Cisco",
+      "Samsung",
+      "TCS"
+    ],
+    "studentReviews": "UVCE offers extremely low fees and a strong alumni network with top core and IT placements. Infrastructure is aging due to its heritage status, but academic freedom and peer environment are excellent. Workload is manageable, allowing strong focus on self-learning.",
+    "branchIntake": "CSE: 120, ECE: 120, ISE: 60, ME: 80, EEE: 80, Civil: 120",
+    "teachingQuality": "Experienced government-appointed faculty members with deep domain knowledge. Teaching is largely traditional with high autonomy given to students for self-study and research.",
+    "infrastructure": "Historic heritage campus in K.R. Circle with basic modern labs, central library, and government hostel facilities. Upgrades are underway after gaining autonomous university status.",
+    "campusLife": "Centrally located in Bangalore with active cultural fests like Marvel and Fiesta alongside vibrant technical clubs. Great student autonomy and peer culture.",
+    "fees": "KCET: ~INR 38,000/year; Management Quota: Not applicable (Public University)",
+    "scholarships": "State Scholarship Portal (SSP), National Scholarship Portal (NSP), E-Pass, and alumni association scholarships.",
+    "seatsTotal": "700",
+    "ranking": "NAAC Grade A, State Rank 3 among public engineering institutions"
   },
   "E002": {
     "code": "E002",
     "shortName": "SKSJTI",
     "aliases": [
-      "SKSJT",
+      "SKSJT Institute of Engineering",
       "Sri Krishnarajendra Silver Jubilee Technological Institute"
     ],
-    "placementLPA": "Highest: ~15 LPA, Average: ~4-5 LPA",
-    "teachingQuality": "Teaching staff consists of experienced government-appointed professors specializing in Textile and foundational engineering branches. Pedagogy blends classroom lectures with practical training in specialized domain labs. The focus remains on core conceptual clarity and technical fundamentals.",
-    "infrastructure": "Compact heritage campus situated near KR Circle featuring specialized textile testing and manufacturing labs. Basic central library and computing facilities are available for students. Shared government hostel accommodations are provided.",
-    "campusLife": "Centrally situated in Bangalore with convenient public transit connections across the city. Campus environment is academic and focused on specialized engineering disciplines. Annual sports and cultural meets are organized at the institute level.",
-    "fees": "KCET: ~₹30,000 - ₹40,000 per year; Management quota: Not Applicable (Government Institute)",
-    "scholarships": "Karnataka State SSP/NSP scholarship schemes for SC/ST/OBC and economically weaker sections.",
-    "seatsTotal": "200+",
-    "ranking": "State Government Institute, recognized by AICTE and affiliated to VTU"
+    "placementLPA": "Highest: 22 LPA, Average: 5.5 LPA",
+    "branchPlacements": "CSE: Avg 7.5 LPA, Highest 22 LPA, 85% placed; ECE: Avg 6 LPA, Highest 14 LPA, 78% placed; Textile: Avg 4.5 LPA, Highest 8 LPA, 70% placed",
+    "topRecruiters": [
+      "TCS",
+      "Infosys",
+      "Wipro",
+      "Cognizant",
+      "Vardhman",
+      "Raymond"
+    ],
+    "studentReviews": "One of the oldest government institutes specializing in Textile Technology and Computer Science. Fees are minimal, but campus infrastructure and industry exposure are basic compared to private giants. Good ROI for hard-working students.",
+    "branchIntake": "CSE: 60, ECE: 60, Textile Technology: 60, Civil: 30",
+    "teachingQuality": "Dedicated senior professors with traditional teaching approaches. Curriculum follows VTU guidelines strictly with emphasis on practical lab exams.",
+    "infrastructure": "Located in KR Circle with historic buildings, specialized textile testing laboratories, central library, and government hostels.",
+    "campusLife": "Low-key campus atmosphere with primary focus on academics. Close proximity to central Bangalore hub provides excellent transport accessibility.",
+    "fees": "KCET: ~INR 35,000/year; Management Quota: Not applicable",
+    "scholarships": "SSP, NSP, Post-Matric Scholarships for reserved categories.",
+    "seatsTotal": "210",
+    "ranking": "State Rank among VTU government constituent colleges"
   },
   "E003": {
     "code": "E003",
     "shortName": "BMSCE",
     "aliases": [
-      "BMS",
       "BMS College of Engineering",
-      "BMS Main Campus"
+      "BMS"
     ],
-    "placementLPA": "Highest: ~50 LPA, Average: ~8.5-10.5 LPA",
-    "teachingQuality": "Highly qualified faculty with a strong emphasis on research, patenting, and industry-oriented teaching. Autonomous academic status allows frequent updates to syllabus aligned with modern technological trends. Interactive teaching methods and continuous assessments are standard.",
-    "infrastructure": "Sprawling urban campus in Basavanagudi equipped with advanced laboratories, incubation centers, and research facilities. Includes modern indoor and outdoor sports complexes, a multi-story library, and well-maintained campus hostels.",
-    "campusLife": "Vibrant campus life anchored by iconic cultural festivals like UTSAV which attract national participation. Numerous active technical, social, and creative clubs provide continuous opportunities for extracurricular development.",
-    "fees": "KCET: ~₹1,00,000 per year; Management: ₹3.5 Lakhs - ₹10 Lakhs per year depending on branch",
-    "scholarships": "BMS Educational Trust Merit Scholarships, SSP, NSP, and corporate-sponsored awards.",
-    "seatsTotal": "1500+",
-    "ranking": "NIRF 2023: Ranked 83 in Engineering; NAAC A++ Accredited"
+    "placementLPA": "Highest: 50 LPA, Average: 10.5 LPA",
+    "branchPlacements": "CSE: Avg 15 LPA, Highest 50 LPA, 98% placed; ISE: Avg 14 LPA, Highest 48 LPA, 96% placed; ECE: Avg 11 LPA, Highest 32 LPA, 92% placed; ME: Avg 7 LPA, Highest 16 LPA, 80% placed",
+    "topRecruiters": [
+      "Amazon",
+      "Cisco",
+      "Goldman Sachs",
+      "Oracle",
+      "Bosch",
+      "Intel",
+      "Deloitte"
+    ],
+    "studentReviews": "BMSCE is renowned for outstanding campus culture, top-tier placements, and strong industry connect. The campus is vibrant, located centrally in Basavanagudi, with rigorous yet balanced academics. Students praise peer learning and club culture.",
+    "branchIntake": "CSE: 360, ISE: 240, ECE: 240, EEE: 60, ME: 120, Civil: 120",
+    "teachingQuality": "Highly qualified faculty with doctorate degrees and strong research publication records. Autonomous status ensures updated curriculum aligned with industry standards.",
+    "infrastructure": "Spread across 15 acres with modern high-tech labs, multi-storey academic blocks, vast library, indoor sports complex, and well-maintained hostels.",
+    "campusLife": "Host to 'Utsav', one of Karnataka's biggest inter-collegiate fests. Active student clubs spanning robotics, coding, drama, and sports in a rich cultural neighborhood.",
+    "fees": "KCET: ~INR 1,07,000/year; Management Quota: INR 5,00,000 - 10,00,000/year depending on branch",
+    "scholarships": "BMS Educational Trust Scholarships, Merit-cum-Means Scholarships, SSP, and NSP.",
+    "seatsTotal": "1500",
+    "ranking": "NIRF 2023: Engineering Rank 83, NAAC A++ Grade"
   },
   "E004": {
     "code": "E004",
     "shortName": "Dr. AIT",
     "aliases": [
       "Dr. Ambedkar Institute of Technology",
-      "Dr AIT Bangalore"
+      "AIT Bangalore"
     ],
-    "placementLPA": "Highest: ~25 LPA, Average: ~5-6 LPA",
-    "teachingQuality": "Experienced faculty team with many professors holding doctoral degrees and extensive academic background. Autonomous curriculum ensures updated coursework integrated with practical lab experiments. Outcome-based education is emphasized across all engineering departments.",
-    "infrastructure": "Expansive campus equipped with departmental laboratories, central library, and large auditoriums. On-campus hostels for boys and girls provide essential amenities and mess facilities. Sports grounds for cricket, football, and indoor sports are present.",
-    "campusLife": "Located near Nagarbhavi, offering a calm academic setting with straightforward city connectivity. Annual cultural fest SANSKRUTI and departmental technical fests encourage creative and technical participation. Active NSS and NCC units are operational on campus.",
-    "fees": "KCET: ~₹75,000 - ₹1,00,000 per year; Management: ₹2 Lakhs - ₹4 Lakhs per year",
-    "scholarships": "Government SSP/NSP post-matric scholarships and fee concessions for eligible SC/ST/OBC students.",
-    "seatsTotal": "1100+",
-    "ranking": "NAAC Grade A Accredited; Autonomous institute affiliated to VTU"
+    "placementLPA": "Highest: 25 LPA, Average: 6.2 LPA",
+    "branchPlacements": "CSE: Avg 8.5 LPA, Highest 25 LPA, 90% placed; ISE: Avg 7.5 LPA, Highest 20 LPA, 88% placed; ECE: Avg 6.5 LPA, Highest 16 LPA, 82% placed; ME: Avg 5 LPA, Highest 10 LPA, 68% placed",
+    "topRecruiters": [
+      "TCS",
+      "Infosys",
+      "Cognizant",
+      "Capgemini",
+      "L&T Technology Services",
+      "Mindtree"
+    ],
+    "studentReviews": "Autonomous government-aided institute providing good ROI and solid academic structure. Placements for CS/IS are steady, though infrastructure modernizations are ongoing. Discipline and academic routine are well-maintained.",
+    "branchIntake": "CSE: 180, ISE: 120, ECE: 180, EEE: 60, ME: 60, Civil: 60",
+    "teachingQuality": "Experienced faculty with autonomy in curriculum design and continuous internal evaluations. Practical lab sessions are well organized.",
+    "infrastructure": "23-acre campus near Mallathahalli with central library, auditorium, computing labs, and hostel facilities for boys and girls.",
+    "campusLife": "Balanced campus atmosphere featuring annual cultural festival 'Samskruthi', active IEEE student branch, and sports tournaments.",
+    "fees": "KCET: ~INR 65,000/year (Aided), ~INR 1,07,000/year (Unaided); Management Quota: INR 2,50,000 - 4,50,000/year",
+    "scholarships": "Government welfare scholarships for SC/ST/OBC, SSP, NSP, and fee concessions.",
+    "seatsTotal": "960",
+    "ranking": "NAAC Grade A, Accredited by NBA"
   },
   "E005": {
     "code": "E005",
     "shortName": "RVCE",
     "aliases": [
-      "RV",
       "RV College of Engineering",
-      "RV Engineering College"
+      "RV"
     ],
-    "placementLPA": "Highest: ~62 LPA, Average: ~15-18 LPA",
-    "teachingQuality": "Exceptionally qualified faculty with extensive involvement in industrial consultancy, research, and patents. The autonomous curriculum is designed with direct input from leading multinational tech corporations. Project-based learning and high academic standards are strictly maintained.",
-    "infrastructure": "Spacious 50-acre green campus along Mysore Road featuring cutting-edge research centers and specialized industrial labs. Includes excellent sports facilities, a comprehensive digital library, campus-wide Wi-Fi, and structured hostels.",
-    "campusLife": "Dynamic student culture driven by the popular 8TH MILE national festival and frequent technical symposia. Student innovation teams like Ashwa Racing and Solar Car Team regularly participate in international competitions.",
-    "fees": "KCET: ~₹1,00,000 per year; Management: ₹5 Lakhs - ₹15 Lakhs per year based on branch",
-    "scholarships": "RV Trust Merit Scholarships, NSP, SSP, and private corporate merit awards.",
-    "seatsTotal": "1400+",
-    "ranking": "NIRF 2023: Ranked 96 in Engineering; NAAC Grade A Accredited"
+    "placementLPA": "Highest: 62 LPA, Average: 15 LPA",
+    "branchPlacements": "CSE: Avg 20 LPA, Highest 62 LPA, 99% placed; ISE: Avg 18 LPA, Highest 58 LPA, 98% placed; ECE: Avg 14 LPA, Highest 38 LPA, 95% placed; ME: Avg 8.5 LPA, Highest 22 LPA, 85% placed",
+    "topRecruiters": [
+      "Microsoft",
+      "Amazon",
+      "Atlassian",
+      "Goldman Sachs",
+      "Cisco",
+      "NVIDIA",
+      "Qualcomm"
+    ],
+    "studentReviews": "RVCE is arguably the top private engineering college in Karnataka with exceptional placement records and high peer standards. Academic workload is demanding, but opportunities and industry reputation are unparalleled. Great research and competition teams.",
+    "branchIntake": "CSE: 240, ISE: 120, ECE: 180, EEE: 60, ME: 120, Civil: 120",
+    "teachingQuality": "Top-tier professors with significant industry and research exposure. The autonomous curriculum is updated annually to include emerging technologies and project work.",
+    "infrastructure": "Sprawling 50+ acre campus along Mysore Road equipped with advanced research centers, industry-sponsored labs, extensive library, and comprehensive sports grounds.",
+    "campusLife": "Features famous annual fest 8th Mile, numerous technical student teams (Solar Car, Formula Student), and intense coding culture.",
+    "fees": "KCET: ~INR 1,07,000/year; Management Quota: INR 10,00,000 - 15,00,000/year for CS/IS",
+    "scholarships": "RSST Management Scholarships, Sports Scholarships, SSP, NSP, and corporate awards.",
+    "seatsTotal": "1200",
+    "ranking": "NIRF 2023: Engineering Rank 96, NAAC A+ Grade"
   },
   "E006": {
     "code": "E006",
     "shortName": "MSRIT",
     "aliases": [
-      "M S Ramaiah Institute of Technology",
-      "Ramaiah Institute of Technology",
+      "MS Ramaiah Institute of Technology",
+      "Ramaiah",
       "RIT"
     ],
-    "placementLPA": "Highest: ~50 LPA, Average: ~7.5-9.5 LPA",
-    "teachingQuality": "Distinguished faculty profile with consistent research publications and industry projects. Autonomous syllabus is regularly updated to include emerging domains like AI, ML, and Cyber Security. Strong corporate linkages provide extensive practical exposure to students.",
-    "infrastructure": "Well-planned urban campus in Mathikere featuring state-of-the-art laboratories and computing infrastructure. Offers an expansive central library, modern auditoriums, air-conditioned seminar halls, and on-campus hostels.",
-    "campusLife": "Lively campus environment marked by the major annual inter-collegiate festival UDBHAV. A wide array of student clubs focusing on robotics, coding, literature, music, and social service ensure constant student involvement.",
-    "fees": "KCET: ~₹1,00,000 per year; Management: ₹3.5 Lakhs - ₹9 Lakhs per year depending on branch",
-    "scholarships": "Gokula Education Foundation Scholarships, SSP, NSP, and merit-cum-means awards.",
-    "seatsTotal": "1600+",
-    "ranking": "NIRF 2023: Ranked 78 in Engineering; NAAC A+ Grade"
+    "placementLPA": "Highest: 50 LPA, Average: 9.8 LPA",
+    "branchPlacements": "CSE: Avg 14.5 LPA, Highest 50 LPA, 97% placed; ISE: Avg 13.5 LPA, Highest 45 LPA, 95% placed; ECE: Avg 10 LPA, Highest 30 LPA, 91% placed; ME: Avg 6.8 LPA, Highest 15 LPA, 78% placed",
+    "topRecruiters": [
+      "Amazon",
+      "Cisco",
+      "Goldman Sachs",
+      "Samsung",
+      "JP Morgan",
+      "Adobe",
+      "Capgemini"
+    ],
+    "studentReviews": "MSRIT offers fantastic location benefits in Mathikere, top-rated placements, and broad campus activities. The atmosphere is cosmopolitan and vibrant, though academic schedules can be busy. Industry tie-ups provide strong internship exposure.",
+    "branchIntake": "CSE: 240, ISE: 180, ECE: 200, EEE: 120, ME: 120, Civil: 120",
+    "teachingQuality": "Faculty members are experienced and highly supportive, encouraging student research and startup ideas. Curriculum is industry-relevant under autonomous status.",
+    "infrastructure": "Located within the vast Ramaiah campus with modern air-conditioned auditoriums, advanced department labs, hospital facilities, and comfortable hostels.",
+    "campusLife": "Host to the popular youth fest 'UDBHAV'. Abundant student clubs, tech chapters, and proximity to IISc and central Bengaluru hubs.",
+    "fees": "KCET: ~INR 1,07,000/year; Management Quota: INR 6,00,000 - 11,00,000/year",
+    "scholarships": "MSRIT Alumni Scholarship, Govt Scholarships (SSP/NSP), Merit Scholarships.",
+    "seatsTotal": "1400",
+    "ranking": "NIRF 2023: Engineering Rank 78, NAAC A+ Grade"
   },
   "E007": {
     "code": "E007",
@@ -104,16 +172,28 @@
     "aliases": [
       "Dayananda Sagar College of Engineering",
       "Dayananda Sagar",
-      "DSI"
+      "DSCE Bangalore"
     ],
-    "placementLPA": "Highest: ~45 LPA, Average: ~6-8 LPA",
-    "teachingQuality": "Competent faculty team committed to academic rigor and practical skill building. Autonomous curriculum offers a broad selection of electives and hands-on laboratory modules. Guest lectures and industry visits are regularly integrated into the academic calendar.",
-    "infrastructure": "Large hill-top campus in Kumaraswamy Layout featuring modern architecture and advanced department labs. Facilities include a multi-story central library, sports arena, diverse food courts, and campus hostels.",
-    "campusLife": "Diverse and energetic student body with grand cultural events like ANVTAR organized annually. Active professional student chapters (IEEE, CSI, SAE) and creative societies foster a well-rounded student life.",
-    "fees": "KCET: ~₹1,00,000 per year; Management: ₹2.5 Lakhs - ₹7 Lakhs per year depending on stream",
-    "scholarships": "Dayananda Sagar Management Scholarships, government SSP/NSP financial support.",
-    "seatsTotal": "2000+",
-    "ranking": "NIRF 2023: 151-200 Band in Engineering; NAAC Grade A Accredited"
+    "placementLPA": "Highest: 45 LPA, Average: 7.5 LPA",
+    "branchPlacements": "CSE: Avg 11 LPA, Highest 45 LPA, 94% placed; ISE: Avg 10 LPA, Highest 40 LPA, 92% placed; ECE: Avg 7.8 LPA, Highest 26 LPA, 86% placed; ME: Avg 5.5 LPA, Highest 12 LPA, 72% placed",
+    "topRecruiters": [
+      "Amazon",
+      "Accenture",
+      "Cognizant",
+      "Capgemini",
+      "Mercedes-Benz",
+      "Infosys",
+      "LTI Mindtree"
+    ],
+    "studentReviews": "DSCE boasts one of the largest and most picturesque urban campuses in Bangalore. Strong placements for IT/CS streams with balanced focus on academics and extracurricular activities. Diversity of students makes for a great social environment.",
+    "branchIntake": "CSE: 240, ISE: 180, ECE: 240, EEE: 120, ME: 120, Civil: 120",
+    "teachingQuality": "Qualified and approachable faculty with autonomous academic framework allowing project-based learning and continuous assessment.",
+    "infrastructure": "23-acre hilltop campus in Kumaraswamy Layout featuring multi-storey academic blocks, central library, food courts, amphitheater, and modern hostels.",
+    "campusLife": "High campus energy with annual cultural mega-fest 'Anantara', active innovation cell (DERBI), sports grounds, and diverse student clubs.",
+    "fees": "KCET: ~INR 1,07,000/year; Management Quota: INR 4,50,000 - 8,00,000/year",
+    "scholarships": "Mahatma Gandhi Merit Scholarship, State SSP/NSP scholarships, Defense concessions.",
+    "seatsTotal": "1600",
+    "ranking": "NIRF 2023: Rank Band 201-250, NAAC Grade A"
   },
   "E008": {
     "code": "E008",
@@ -122,32 +202,55 @@
       "Bangalore Institute of Technology",
       "BIT Bangalore"
     ],
-    "placementLPA": "Highest: ~38 LPA, Average: ~6.5-8 LPA",
-    "teachingQuality": "Experienced and dedicated faculty with deep academic experience and domain knowledge. Focus is maintained on core technical fundamentals supported by practical laboratory sessions. Regular skill development workshops and technical seminars are conducted.",
-    "infrastructure": "Centrally located campus in VV Puram equipped with updated engineering laboratories and computing centers. Features a well-stocked central library, seminar halls, and hostel accommodations.",
-    "campusLife": "Situated in the bustling food and cultural hub of VV Puram, giving students rich urban exposure. The annual fest MANTHAN showcases student talent across cultural and technical domains. Active coding clubs and sports teams are present.",
-    "fees": "KCET: ~₹1,00,000 per year; Management: ₹2.5 Lakhs - ₹6.5 Lakhs per year",
-    "scholarships": "Rajya Vokkaligara Sangha Scholarships, SSP, NSP, and state fee concession schemes.",
-    "seatsTotal": "1300+",
-    "ranking": "NAAC Grade A Accredited; Autonomous Institution affiliated to VTU"
+    "placementLPA": "Highest: 38 LPA, Average: 7.2 LPA",
+    "branchPlacements": "CSE: Avg 10.5 LPA, Highest 38 LPA, 92% placed; ISE: Avg 9.5 LPA, Highest 32 LPA, 90% placed; ECE: Avg 7.2 LPA, Highest 22 LPA, 84% placed; ME: Avg 5.2 LPA, Highest 10 LPA, 70% placed",
+    "topRecruiters": [
+      "Infosys",
+      "TCS",
+      "Wipro",
+      "Bosch",
+      "Oracle",
+      "Cisco",
+      "Dell"
+    ],
+    "studentReviews": "BIT is a legacy-driven institution located centrally in VV Puram (Food Street area). Great academic focus and solid core/IT recruiters, though campus area is compact. The location is a huge advantage for foodies and metro connectivity.",
+    "branchIntake": "CSE: 180, ISE: 120, ECE: 180, EEE: 60, ME: 60, Civil: 60",
+    "teachingQuality": "Experienced professors with traditional teaching methods and strict academic discipline under autonomous status.",
+    "infrastructure": "Compact campus in VV Puram with multi-storey building, well-stocked central library, specialized labs, and hostel accommodation.",
+    "campusLife": "Vibrant surrounding area in heart of South Bangalore, annual fest 'MANthan', active NSS and IEEE units.",
+    "fees": "KCET: ~INR 1,07,000/year; Management Quota: INR 4,00,000 - 7,50,000/year",
+    "scholarships": "State SSP/NSP scholarships, Rajya Vokkaligara Sangha scholarships for eligible candidates.",
+    "seatsTotal": "1100",
+    "ranking": "NAAC Grade A, NBA Accredited branches"
   },
   "E009": {
     "code": "E009",
-    "shortName": "PESU (RR)",
+    "shortName": "PESU RR",
     "aliases": [
-      "PES University",
-      "PES Institute of Technology",
+      "PES University Ring Road Campus",
       "PESIT",
-      "PESRR"
+      "PES University"
     ],
-    "placementLPA": "Highest: ~65 LPA, Average: ~11-13 LPA",
-    "teachingQuality": "Rigorous academic framework emphasizing continuous evaluation, problem solving, and industry readiness. Highly qualified faculty along with corporate guest lecturers deliver a modern university curriculum. Strong emphasis is placed on competitive programming, research, and hands-on projects.",
-    "infrastructure": "Modern high-tech campus on Ring Road featuring world-class laboratory infrastructure and air-conditioned classrooms. Includes a massive central library, indoor sports complex, spacious hostels, and multiple dining options.",
-    "campusLife": "Fast-paced academic life balanced by large scale university fests like MAYA and AATMATRISHA. Numerous active student organizations focus on open-source coding, AI, drama, music, and entrepreneurship.",
-    "fees": "KCET: ~₹1,00,000 per year; PESSAT / Management: ₹3.6 Lakhs - ₹4.8 Lakhs per year",
-    "scholarships": "PES CNR Rao Merit Scholarships, MRD Scholarships (up to 40-50% tuition fee waiver for top academic performers), and government scholarships.",
-    "seatsTotal": "2000+",
-    "ranking": "NIRF 2023: 101-150 Band in Engineering; NAAC Grade A"
+    "placementLPA": "Highest: 65 LPA, Average: 13.5 LPA",
+    "branchPlacements": "CSE: Avg 17.5 LPA, Highest 65 LPA, 98% placed; ECE: Avg 11.5 LPA, Highest 35 LPA, 92% placed; EEE: Avg 8.5 LPA, Highest 20 LPA, 85% placed; ME: Avg 7 LPA, Highest 15 LPA, 78% placed",
+    "topRecruiters": [
+      "Microsoft",
+      "Amazon",
+      "Atlassian",
+      "Goldman Sachs",
+      "Intuit",
+      "Cisco",
+      "Morgan Stanley"
+    ],
+    "studentReviews": "PESU Ring Road campus is known for rigorous academics, high competitive spirit, and exceptional placement statistics. Workload is high with frequent assessments, but output for software engineering careers is top tier. Excellent peer group.",
+    "branchIntake": "CSE: 720, ECE: 360, EEE: 120, ME: 120, Biotech: 60",
+    "teachingQuality": "Highly qualified faculty with strict evaluation standards and continuous internal exams (ISA/ESA system). Course curriculum is regularly updated by University Academic Council.",
+    "infrastructure": "State-of-the-art multi-storey modern campus along Outer Ring Road, modern research facilities, indoor sports complex, sprawling library, and on-campus hostels.",
+    "campusLife": "Fast-paced campus life with major fests like 'Atmatrisha', active hackathon culture, and technical clubs (ACM, IEEE).",
+    "fees": "KCET: ~INR 1,07,000/year; PESSAT / Management Quota: INR 4,50,000 - 5,00,000/year",
+    "scholarships": "Prof. CNR Rao Merit Scholarship (up to 50% tuition waiver), MRD Merit Scholarship, SSP/NSP.",
+    "seatsTotal": "1800",
+    "ranking": "NIRF 2023: Engineering Rank 101-150 Band, NAAC A+ Grade"
   },
   "E011": {
     "code": "E011",
@@ -156,14 +259,26 @@
       "MVJ College of Engineering",
       "MVJ Bangalore"
     ],
-    "placementLPA": "Highest: ~21 LPA, Average: ~4.5-5.5 LPA",
-    "teachingQuality": "Faculty members focus on outcome-based education and practical application of concepts. Autonomous curriculum allows inclusion of current industry software tools and specialized electives. Regular soft skills and technical placement training sessions are organized.",
-    "infrastructure": "Spacious 15-acre campus located in Whitefield near prominent IT parks. Equipped with specialized aeronautical and aerospace labs, central library, sports fields, and on-campus hostels.",
-    "campusLife": "Proximity to the Whitefield IT corridor offers practical exposure, industrial visits, and internship access. Annual cultural fest SWAYAM and technical exhibition TIKONA provide platforms for student talents.",
-    "fees": "KCET: ~₹1,00,000 per year; Management: ₹1.5 Lakhs - ₹3.5 Lakhs per year",
-    "scholarships": "MVJ Merit Scholarship Scheme, state government SSP, and national NSP scholarships.",
-    "seatsTotal": "1100+",
-    "ranking": "NAAC Grade A Accredited; Autonomous Institution affiliated to VTU"
+    "placementLPA": "Highest: 21 LPA, Average: 5.2 LPA",
+    "branchPlacements": "CSE: Avg 7 LPA, Highest 21 LPA, 86% placed; ISE: Avg 6.2 LPA, Highest 18 LPA, 84% placed; ECE: Avg 5.5 LPA, Highest 12 LPA, 78% placed; Aeronautical: Avg 5 LPA, Highest 10 LPA, 70% placed",
+    "topRecruiters": [
+      "TCS",
+      "Infosys",
+      "Capgemini",
+      "Cognizant",
+      "Quest Global",
+      "Airbus (Internships)",
+      "Wipro"
+    ],
+    "studentReviews": "MVJCE in Whitefield offers specialized programs like Aeronautical and Aerospace engineering along with traditional IT branches. Campus environment is disciplined with moderate placement opportunities and proximity to IT parks.",
+    "branchIntake": "CSE: 180, ISE: 120, ECE: 120, Aeronautical: 120, Aerospace: 60, ME: 60",
+    "teachingQuality": "Dedicated faculty with practical focus and industry guest lectures. VTU/Autonomous curriculum emphasizing project work.",
+    "infrastructure": "15-acre campus in IT hub Whitefield with specialized aerodynamics labs, flight simulator, central library, sports grounds, and hostels.",
+    "campusLife": "Annual cultural fest 'Swayam', technical events like 'VertechX', sports competitions, and proximity to IT corridors.",
+    "fees": "KCET: ~INR 1,07,000/year; Management Quota: INR 2,50,000 - 5,00,000/year",
+    "scholarships": "Dr. M.V. Jayaraman Foundation Scholarship, Merit-based waivers, SSP/NSP scholarships.",
+    "seatsTotal": "900",
+    "ranking": "NAAC Grade A, NBA Accredited major branches"
   },
   "E012": {
     "code": "E012",

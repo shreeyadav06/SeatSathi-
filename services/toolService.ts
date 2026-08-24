@@ -613,7 +613,7 @@ export const toolsDeclaration: any[] = [
       },
       {
         name: "get_college_info",
-        description: "Gets detailed qualitative information about a specific college (e.g., placements, teaching, infrastructure, campus life, fees, ranking). Use this when the user asks for details about a college, reviews, or specific parameters like 'how are placements at BMS' or 'tell me about RVCE infrastructure'.",
+        description: "Gets detailed qualitative and quantitative information about a specific college (including branch-specific placements for CSE/ECE/ME, average & highest LPA, top recruiting companies, student intake per branch, student reviews, pros & cons, fees, teaching, infrastructure, and campus life). Use this whenever the user asks for details about a college, placements, branch stats, recruiters, or reviews (e.g., 'tell me CSE placements at RVCE', 'what companies visit BMSCE', 'how are student reviews for MSRIT').",
         parameters: {
           type: "OBJECT",
           properties: {
