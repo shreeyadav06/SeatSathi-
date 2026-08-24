@@ -58,6 +58,9 @@ async function extractPdfText(filePath) {
 }
 
 function parseKCETCutoffText(text, year, round) {
+  // Ensure every 'College: EXXX' header is separated onto its own line
+  text = text.replace(/(.)(College\s*:\s*E\d{3})/gi, '$1\n$2');
+  
   const entries = [];
   let currentCollegeCode = null;
   let currentCollegeName = null;
