@@ -80,3 +80,27 @@ export const KCET_CATEGORIES = [
 ] as const;
 
 export type CategoryCode = typeof KCET_CATEGORIES[number];
+
+export interface CollegeMetadataRecord {
+  id?: number;
+  code: string;
+  shortName: string;
+  aliases: string[];
+  placementLPA: string;
+  branchPlacements?: string;
+  topRecruiters?: string[];
+  studentReviews?: string;
+  branchIntake?: string;
+  teachingQuality: string;
+  infrastructure: string;
+  campusLife: string;
+  fees: string;
+  scholarships: string;
+  seatsTotal: string;
+  ranking: string;
+}
+
+export interface CollegeMetadataMap {
+  [code: string]: CollegeMetadataRecord;
+}
+

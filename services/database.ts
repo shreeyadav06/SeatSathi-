@@ -1,4 +1,5 @@
 import Dexie, { Table } from 'dexie';
+import { CollegeMetadataRecord } from '../KCETcutoffdata/types';
 
 export interface CollegeRecord {
   id?: number;
@@ -38,10 +39,18 @@ class SeatSathiDB extends Dexie {
   colleges!: Table<CollegeRecord>;
   branches!: Table<BranchRecord>;
   cutoffs!: Table<CutoffRecord>;
+  collegeMetadata!: Table<CollegeMetadataRecord>;
 
   constructor() {
     super('SeatSathiDB');
     
+    this.version(3).stores({
+      colleges: '++id, code, name, location, *locationKeywords',
+      branches: '++id, collegeCode, branchNormalized, branchCategory, isPure, location, [branchCategory+location], [branchCategory+isPure]',
+      cutoffs: '++id, collegeCode, branchNormalized, branchCategory, isPure, location, year, round, category, cutoffRank, [branchCategory+location+category], [branchCategory+category+year], [location+branchCategory+category]',
+      collegeMetadata: '++id, code, shortName'
+    });
+
     this.version(2).stores({
       colleges: '++id, code, name, location, *locationKeywords',
       branches: '++id, collegeCode, branchNormalized, branchCategory, isPure, location, [branchCategory+location], [branchCategory+isPure]',
@@ -328,4 +337,5 @@ export async function clearDatabase(): Promise<void> {
   await db.colleges.clear();
   await db.branches.clear();
   await db.cutoffs.clear();
+  await db.collegeMetadata.clear();
 }

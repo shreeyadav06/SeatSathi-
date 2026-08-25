@@ -1,12 +1,17 @@
 import { db, CollegeRecord, BranchRecord, CutoffRecord, extractLocation, getLocationKeywords, normalizeBranchName } from './database';
-import { KcetData } from '../types';
+import { KcetData, CollegeMetadataRecord } from '../KCETcutoffdata/types';
 
 async function loadKCETData() {
   const { loadKCETData: lazyLoad } = await import('../KCETcutoffdata/collegeDataLazy');
   return lazyLoad();
 }
 
-export async function populateDatabase(): Promise<{ success: boolean; stats: { colleges: number; branches: number; cutoffs: number }; timeMs: number }> {
+async function fetchCollegeMetadata() {
+  const { loadCollegeMetadata } = await import('../KCETcutoffdata/metadataLoader');
+  return loadCollegeMetadata();
+}
+
+export async function populateDatabase(): Promise<{ success: boolean; stats: { colleges: number; branches: number; cutoffs: number; metadata: number }; timeMs: number }> {
   const startTime = performance.now();
   
   try {
@@ -14,14 +19,22 @@ export async function populateDatabase(): Promise<{ success: boolean; stats: { c
     await db.colleges.clear();
     await db.branches.clear();
     await db.cutoffs.clear();
+    await db.collegeMetadata.clear();
     
-    // Lazily load college data
-    const KCET_DATA = await loadKCETData();
+    // Lazily load college data & metadata concurrently
+    const [KCET_DATA, METADATA_JSON] = await Promise.all([
+      loadKCETData(),
+      fetchCollegeMetadata().catch(e => {
+        console.error("Failed to fetch college metadata", e);
+        return {};
+      })
+    ]);
     const data = KCET_DATA as KcetData;
     
     const collegeRecords: CollegeRecord[] = [];
     const branchRecords: BranchRecord[] = [];
     const cutoffRecords: CutoffRecord[] = [];
+    const metadataRecords: CollegeMetadataRecord[] = [];
     
     // Process each college
     Object.entries(data.colleges).forEach(([code, college]) => {
@@ -80,11 +93,19 @@ export async function populateDatabase(): Promise<{ success: boolean; stats: { c
       });
     });
     
+    // Process metadata
+    Object.entries(METADATA_JSON).forEach(([code, record]) => {
+      metadataRecords.push(record);
+    });
+    
     // Bulk insert all records (much faster than individual inserts)
-    await db.transaction('rw', [db.colleges, db.branches, db.cutoffs], async () => {
+    await db.transaction('rw', [db.colleges, db.branches, db.cutoffs, db.collegeMetadata], async () => {
       await db.colleges.bulkAdd(collegeRecords);
       await db.branches.bulkAdd(branchRecords);
       await db.cutoffs.bulkAdd(cutoffRecords);
+      if (metadataRecords.length > 0) {
+        await db.collegeMetadata.bulkAdd(metadataRecords);
+      }
     });
     
     const endTime = performance.now();
@@ -94,7 +115,8 @@ export async function populateDatabase(): Promise<{ success: boolean; stats: { c
       stats: {
         colleges: collegeRecords.length,
         branches: branchRecords.length,
-        cutoffs: cutoffRecords.length
+        cutoffs: cutoffRecords.length,
+        metadata: metadataRecords.length
       },
       timeMs: Math.round(endTime - startTime)
     };
@@ -103,7 +125,7 @@ export async function populateDatabase(): Promise<{ success: boolean; stats: { c
     console.error('Database population error:', error);
     return {
       success: false,
-      stats: { colleges: 0, branches: 0, cutoffs: 0 },
+      stats: { colleges: 0, branches: 0, cutoffs: 0, metadata: 0 },
       timeMs: 0
     };
   }
@@ -111,7 +133,7 @@ export async function populateDatabase(): Promise<{ success: boolean; stats: { c
 
 // Data version - increment this when KCET_DATA changes significantly
 // This forces a database repopulation on the client side
-const DATA_VERSION = 5; // Incremented: more robust category normalization using regexes
+const DATA_VERSION = 8; // Incremented: Added missing 2025 cutoffs for E141 (PES Electronic City) & college mapping fix
 const VERSION_KEY = 'kcet_data_version';
 
 /**
@@ -120,11 +142,12 @@ const VERSION_KEY = 'kcet_data_version';
 export async function ensureDatabaseReady(): Promise<boolean> {
   try {
     const cutoffCount = await db.cutoffs.count();
+    const metadataCount = await db.collegeMetadata.count();
     const storedVersion = localStorage.getItem(VERSION_KEY);
-    const needsUpdate = !storedVersion || parseInt(storedVersion) < DATA_VERSION;
+    const needsUpdate = !storedVersion || parseInt(storedVersion) < DATA_VERSION || metadataCount === 0;
     
     if (cutoffCount === 0 || needsUpdate) {
-      console.log(needsUpdate ? 'Data version changed, repopulating database...' : 'Database empty, populating...');
+      console.log(needsUpdate ? 'Data version changed or metadata missing, repopulating database...' : 'Database empty, populating...');
       const result = await populateDatabase();
       console.log(`Database populated in ${result.timeMs}ms:`, result.stats);
       if (result.success) {
@@ -133,7 +156,7 @@ export async function ensureDatabaseReady(): Promise<boolean> {
       return result.success;
     }
     
-    console.log(`Database ready with ${cutoffCount} cutoff records (version ${storedVersion})`);
+    console.log(`Database ready with ${cutoffCount} cutoff records and ${metadataCount} metadata records (version ${storedVersion})`);
     return true;
   } catch (error) {
     console.error('Database initialization error:', error);
